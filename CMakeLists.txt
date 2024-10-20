@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(BankingSystem)
+set(CMAKE_CXX_STANDARD 17)
+include_directories(include)
+set(SOURCES main.cpp src/Bank.cpp src/Client.cpp src/Devise.cpp src/Transaction.cpp)
+add_executable(BankingSystem ${SOURCES})
