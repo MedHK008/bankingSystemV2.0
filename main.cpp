@@ -104,7 +104,8 @@ void menu(Bank& bank)
                         cout << "2. Withdraw\n";
                         cout << "3. Transfer\n";
                         cout << "4. Show Transaction History\n";
-                        cout << "5. Exit\n";
+                        cout << "5. change account currency\n";
+                        cout << "6. Exit\n";
                         cout << "Enter your choice: ";
                         cin >> operation;
 
@@ -122,7 +123,7 @@ void menu(Bank& bank)
                                 cin >> amount;
                                 if (client->withdraw(Devise(amount, client->getBalance().getCurrency()))) {
                                     cout << "Withdrawal successful.\n";
-                                } else {
+                                }else{
                                     cout << "Insufficient balance.\n";
                                 }
                                 break;
@@ -150,8 +151,13 @@ void menu(Bank& bank)
                                 client->showTransactionHistory();
                                 break;
                             }
+                            case 5:
+                                cout << "select a currency (0 for MAD , 1 for USD and 2 for EURO): ";
+                                int newCurrency;
+                                cin >> newCurrency;
+                                client->changeCurrency(newCurrency);
                         }
-                    } while (operation != 5);
+                    } while (operation != 6);
                 } else {
                     cout << "Account not found.\n";
                 }
@@ -167,5 +173,12 @@ int main() {
     bank.loadAccounts("accounts.csv");
     menu(bank);
     bank.saveAccounts("accounts.csv");
+
+    // Client* alice ;
+    // bank.createAccount("Alice", "12345", std::make_unique<Devise>(500, Currency::MAD));
+    // alice = bank.findAccount("12345");
+    // alice->deposit(Devise(200, Currency::MAD));
+    // alice->changeCurrency(1);
+    // cout << alice->getBalance().getAmount() << endl;
     return 0;
 }

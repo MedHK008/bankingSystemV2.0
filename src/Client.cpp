@@ -33,7 +33,28 @@ bool Client::transfer(Client& toClient, const Devise& amount) {
     return false;
 }
 
+void Client::loadTransactions(const std::string& filename){
+    std::ifstream file(filename);
+    std::cout << "Loading transactions from " << filename << std::endl;
+    if (!file.is_open()) {
+        std::cerr << "Failed to open transactions file for loading." << std::endl;
+        return;
+    }
+    std::string line;
+    while (std::getline(file, line)) {
+        std::istringstream ss(line);
+        std::string date, type, currency;
+        double amount;
+        std::getline(ss, date, ',');
+        std::getline(ss, type, ',');
+        ss >> amount;
+        ss.ignore(1, ',');
+        ss >> currency;
+        transactions.push_back(std::make_shared<Transaction>(type, amount, date, currency));
+    }
+}
 void Client::showTransactionHistory() const {
+    std::cout << "Transaction history for account: " << accountNumber << std::endl;
     for (const auto& transaction : transactions) {
         std::cout << transaction->getDate() << " - " << transaction->getType() << ": " << transaction->getAmount() << " " << transaction->getCurrency() << std::endl;
     }
@@ -50,4 +71,9 @@ std::string Client::getName() const {
 
 std::string Client::getAccountNumber() const {
     return accountNumber;
+}
+
+void Client::changeCurrency(int currency)
+{
+    balance->change_account_currency(currency);
 }

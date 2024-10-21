@@ -41,6 +41,12 @@ public:
      * @return True if the transfer was successful, false otherwise.
      */
     bool transfer(Client& toClient, const Devise& amount);
+    
+    /**
+     * @brief Loads transactions from a CSV file.
+     * @param filename The name of the CSV file.
+     */
+    void loadTransactions(const std::string& filename);
 
     /**
      * @brief Displays the transaction history of the client's account.
@@ -64,6 +70,8 @@ public:
      * @return The account number of the client.
      */
     std::string getAccountNumber() const;
+
+    void changeCurrency(int currency);
 
 private:
     std::string name;

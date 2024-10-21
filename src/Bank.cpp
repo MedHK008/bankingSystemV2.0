@@ -46,5 +46,8 @@ void Bank::loadAccounts(const std::string& filename) {
         ss.ignore(1, ',');
         ss >> currency;
         createAccount(name, accountNumber, std::make_unique<Devise>(amount, static_cast<Currency>(currency)));
+        std::cout << "Account loaded: " << name << " " << accountNumber << " " << amount << " " << currency << std::endl;
+        const std::string& Transactionfilename = "transactions/"+ accountNumber +"_transactions.csv";
+        clients[accountNumber]->loadTransactions(Transactionfilename);
     }
 }

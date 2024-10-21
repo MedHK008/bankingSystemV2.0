@@ -57,8 +57,10 @@ public:
      * @param devise The Devise object to output.
      * @return The output stream.
      */
+    void change_account_currency(int currency);
     friend std::ostream& operator<<(std::ostream& os, const Devise& devise);
 private:
     double amount;
     Currency currency;
 };
+

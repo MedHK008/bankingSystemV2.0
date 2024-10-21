@@ -21,8 +21,9 @@ std::string Transaction::getCurrency() const {
 }
 
 void Transaction::logTransaction(const std::string& accountNumber) const {
+    std::cout << "i am here" << std::endl;
     try {
-        std::ofstream file(accountNumber + "_transactions.csv", std::ios::app);
+        std::ofstream file("/home/hkmed/Bureau/bankingSystemV2.0/transactions/" + accountNumber + "_transactions.csv", std::ios::app);
         if (!file.is_open()) {
             throw std::runtime_error("Failed to open transaction file for account: " + accountNumber);
         }
